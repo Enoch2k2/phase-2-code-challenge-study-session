@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import List from "./components/List";
+import Search from "./components/Search";
 
-function App() {
+
+const App = () => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/items')
+      .then(resp => resp.json())
+      .then(data => setItems(data))
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Code Challenges</h1>
+      <Search />
+      <List items={ items } />
     </div>
   );
 }
